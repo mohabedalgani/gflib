@@ -1,0 +1,78 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   This file is part of GFLIB toolbox 
+%   First Version Sept. 2018 
+%   Copyright (C) 20016-2018 Mohd A. Mezher (mohabedalgani@gmail.com)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+clear
+clc
+close all
+warning off
+s=sprintf("Running binary classification ...\n\n");
+disp(s);
+pause(0.1);
+
+addpath('libsvm-3.22/matlab');
+addpath('@tree');
+addpath('data/binary'); %dataset path for binary
+
+params.type='binary'; %problem type
+params.data='odd_3_parity.txt';  %dataset 
+params.kernel='gf'; %rbf,linear,polynomial,gf
+params.mutprob=0.01; %mutation probability
+params.crossprob=0.5; %crossover probability
+params.maxgen=10; %max generation
+params.popsize=20; %population size
+params.crossval=5; %crossvalidation
+params.oplist={'Plus_s','Minus_s','Multi_s','Plus_v','Minus_v','x','y'};    %operators and operands
+% params.oplist={'Plus_s','Minus_s','Plus_v','Minus_v','x','y'};    %operators and operands
+
+s=sprintf("Data Set : data/binary/%s\n\n",params.data);
+disp(s);
+pause(0.1);
+
+%For MSE
+kernels = {'polynomial', 'rbf', 'linear', 'gf'};
+totalmse = [];
+
+for i = 1 : 5
+    temp = [];
+    clc
+    close all
+    for j = 1 : 4
+        params.kernel = kernels{1,j};
+        s=sprintf("SVM Kernel : %s\n",params.kernel);
+        disp(s);       
+        pause(0.1);
+        if strcmp(params.kernel,'gf')
+            s=sprintf("Max Generation : %d\n",params.maxgen);
+            disp(s);
+            pause(0.1);
+            s=sprintf("Population Size : %d\n",params.popsize);
+            disp(s);
+            pause(0.1);
+            s=sprintf("CrossOver Probability : %f\n",params.crossprob);
+            disp(s);
+            pause(0.1);
+            s=sprintf("Mutation Probability : %f\n\n",params.mutprob);
+            disp(s);
+            pause(0.1);
+            pop=inipop(params); %initial population
+            mse = genpop(pop,params); %generation
+        else
+            mse = typicalsvm(params.type,params.kernel,params.data);
+        end
+        temp = [temp mse];
+        s = sprintf("\n");
+        disp(s);
+    end
+    totalmse = [totalmse; temp];
+end
+
+
+% MSE blox plot
+boxplot([totalmse(:,1),totalmse(:,2),totalmse(:,3),totalmse(:,4)],'Labels',{'Polynomial','Rbf','Linear','Gf'});
+title('MSE for each svm kernel');
+xlabel('svm kernel');
+ylabel('Test Error Rate');
