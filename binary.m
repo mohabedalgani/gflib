@@ -1,7 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   This file is part of GFLIB toolbox 
 %   First Version Sept. 2018 
-%   Copyright (C) 20016-2018 Mohd A. Mezher (mohabedalgani@gmail.com)
+%  
+%   Cite this project as:
+%   Mezher M., Abbod M. (2011) Genetic Folding: A New Class of Evolutionary Algorithms. 
+%   In: Bramer M., Petridis M., Hopgood A. (eds) Research and Development in Intelligent Systems XXVII. 
+%   SGAI 2010. Springer, London
+%
+%   Copyright (C) 20011-2018 Mohd A. Mezher (mohabedalgani@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
