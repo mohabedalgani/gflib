@@ -14,4 +14,5 @@ To run the GFlib toolbox directly to your PC do the following:
 3. run binary.m for binary classification problems
 4. run multi.m for multiclassification problems
 5. run regress.m for regression problems
+6. change the parameters of each file you plan to run using your concerning parameters and data
 
